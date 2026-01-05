@@ -1,0 +1,267 @@
+#============================================================
+#                PYTHON SCRIPT 
+# EU CLIMATE TRANSITION POLICIES & BANK BALANCE SHEETS
+# Data Preparation from Raw ECB Files
+#============================================================
+import pandas as pd
+import numpy as np
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+import re 
+print(pd.__version__)
+# 1. Load CET1 data from ECB
+cet1_raw = pd.read_csv('Raw data/ECB Data CET1.csv')
+print(cet1_raw.head())
+print(cet1_raw.shape)
+# 2. Transform CET1 data from wide data to long data
+cet1_long = pd.melt(
+    cet1_raw,
+    id_vars=["DATE", "TIME PERIOD"],
+    var_name="series",
+    value_name="cet1"
+)
+# 3. Extract the country code from the column
+# Extract 2-letter country code from ECB series name
+cet1_long["country"] = (
+    cet1_long["series"]
+    .str.extract(r"\.([A-Z0-9]{2})\.")
+)
+# Convert date
+cet1_long["date"] = pd.to_datetime(cet1_long["DATE"])
+
+# Keep quarter label
+cet1_long["quarter"] = cet1_long["TIME PERIOD"]
+
+# Drop EU aggregate
+cet1_long = cet1_long[cet1_long["country"] != "B0"]
+
+# Keep post-2014 sample
+cet1_long = cet1_long[cet1_long["date"] >= "2014-10-01"]
+
+# Keep only necessary columns
+cet1_long = cet1_long[["country", "date", "quarter", "cet1"]]
+
+print(cet1_long.head())
+print(cet1_long["country"].unique())
+
+# 4. Load ROE data from ECB
+roe_raw = pd.read_csv('Raw data/ECB Data ROE.csv')
+print(roe_raw.head())
+print(roe_raw.shape)
+
+# 5. Transform ROE data from wide data to long data
+roe_long = pd.melt(
+    roe_raw,
+    id_vars=["DATE", "TIME PERIOD"],
+    var_name="series",
+    value_name="roe"
+)
+# 6. Extract the country code from the column
+# Extractb 2-letter country code from ECB series name
+roe_long["country"] = (
+    roe_long["series"]
+    .str.extract(r"\.([A-Z0-9]{2})\.")
+)
+# Convert date
+roe_long["date"] = pd.to_datetime(roe_long["DATE"])
+# Keep quarter label
+roe_long["quarter"] = roe_long["TIME PERIOD"]
+# Drop EU aggregate
+roe_long = roe_long[roe_long["country"] != "B0"]
+# Keep post-2014 sample
+roe_long = roe_long[roe_long["date"] >= "2014-10-01"]
+# Keep only necessary columns
+roe_long = roe_long[["country", "date", "quarter", "roe"]]
+
+print(roe_long.head())
+print(roe_long["country"].unique())
+
+# 7. Load Total Assets data from ECB
+assets_raw = pd.read_csv('Raw data/ECB Data TA.csv')
+print(assets_raw.head())
+print(assets_raw.shape)
+
+# 8. Transform Total Assets data from wide data to Long data
+assets_long = pd.melt(
+    assets_raw,
+    id_vars=["DATE", "TIME PERIOD"],
+    var_name="series",
+    value_name="total_assets"
+)
+
+# 9. Extract the country code from the column
+# Extract 2-letter country code from ECB series name
+assets_long["country"] = (
+    assets_long["series"]
+    .str.extract(r"\.([A-Z0-9]{2})\.")
+)
+# Convert data
+assets_long["date"] = pd.to_datetime(assets_long["DATE"])
+# Keep quarter label
+assets_long["quarter"] = assets_long["TIME PERIOD"]
+#Drop EU aggregate
+assets_long = assets_long[assets_long["country"] != "B0"]
+# Keep post-2014 sample
+assets_long = assets_long[assets_long["date"] >= "2014-10-01"]
+# keep only necessary columns
+assets_long = assets_long[["country", "date", "quarter", "total_assets"]]
+
+print(assets_long.head())
+print(assets_long["country"].unique())
+
+# Load Total Assets / Total Equity (leverage proxy)
+total_assets_equity_raw = pd.read_csv("Raw data/ECB Data TA-TE.csv")
+
+# Wide → long
+total_assets_equity_long = pd.melt(
+    total_assets_equity_raw,
+    id_vars=["DATE", "TIME PERIOD"],
+    var_name="series",
+    value_name="ta_te"
+)
+
+# Extract country code
+total_assets_equity_long["country"] = (
+    total_assets_equity_long["series"]
+    .str.extract(r"\.([A-Z0-9]{2})\.")
+)
+
+# Convert types
+total_assets_equity_long["date"] = pd.to_datetime(total_assets_equity_long["DATE"])
+total_assets_equity_long["quarter"] = total_assets_equity_long["TIME PERIOD"]
+
+# Ensure numeric leverage ratio
+total_assets_equity_long["ta_te"] = pd.to_numeric(
+    total_assets_equity_long["ta_te"],
+    errors="coerce"
+)
+
+# Drop EU aggregate
+total_assets_equity_long = total_assets_equity_long[
+    total_assets_equity_long["country"] != "B0"
+]
+
+# Keep post-2014 sample
+total_assets_equity_long = total_assets_equity_long[
+    total_assets_equity_long["date"] >= "2014-10-01"
+]
+
+# Keep only required columns
+total_assets_equity_long = total_assets_equity_long[
+    ["country", "date", "quarter", "ta_te"]
+]
+
+# Quick checks
+print(total_assets_equity_long.head())
+print(total_assets_equity_long["country"].unique())
+print(total_assets_equity_long.shape)
+
+# 10. Merge all datasets into a single dataframe
+# 11. Merge all datasets into one panel
+bank_panel = (
+    cet1_long
+    .merge(roe_long, on=["country", "date", "quarter"], how="inner")
+    .merge(assets_long, on=["country", "date", "quarter"], how="inner")
+    .merge(total_assets_equity_long, on=["country", "date", "quarter"], how="inner")
+)
+
+#  Sort panel
+bank_panel = bank_panel.sort_values(["country", "date"]).reset_index(drop=True)
+
+#  Check
+print(bank_panel.head())
+print(bank_panel.shape)
+print(bank_panel["country"].value_counts())
+
+# 12. Calculate asset growth (% change in total assets)
+# Sort panel by country and date
+bank_panel = bank_panel.sort_values(["country", "date"])
+# 13.Calculate asset growth as percentage change in total assets by country
+bank_panel["asset_growth"] = (
+    bank_panel
+    .groupby("country")["total_assets"]
+    .pct_change() * 100
+)
+# 14. Calculate change in leverage (TA/TE)
+bank_panel["leverage_change"] = (
+    bank_panel
+    .groupby("country")["ta_te"]
+    .pct_change() * 100
+)
+
+# 15. Create East European country indicator
+east_countries = ["PL", "HU", "HR", "LT"]
+
+# Create binary indicator for East European countries
+bank_panel["east"] = bank_panel["country"].isin(east_countries).astype(int)
+
+# Quick check of East indicator
+bank_panel.groupby("east")["country"].unique()
+
+# 16. Create post-2020 indicator (ECB climate stress test regime 2020) and 
+# DID interaction term
+bank_panel["post_2020"] = (bank_panel["date"] >= "2020-03-31").astype(int)
+bank_panel["did_2020"] = bank_panel["east"] * bank_panel["post_2020"]
+
+# Robustness check: alternative post-2019 indicator
+bank_panel["post_2019"] = (bank_panel["date"] >= "2019-12-31").astype(int)
+bank_panel["did_2019"] = bank_panel["east"] * bank_panel["post_2019"]
+
+# Return on Equity DiD Competitiveness Analysis
+import statsmodels.formula.api as smf
+
+roe_did_2020 = smf.ols(
+    "roe ~ post_2020 + east + did_2020 + asset_growth + leverage_change",
+    data=bank_panel
+).fit(cov_type="HC1")
+
+print(roe_did_2020.summary())
+
+# Return on Equity DiD Robustness Check
+roe_did_2019 = smf.ols(
+    "roe ~ post_2019 + east + did_2019 + asset_growth + leverage_change",
+    data=bank_panel
+).fit(cov_type="HC1")
+
+print(roe_did_2019.summary())
+
+# 12. Calculate asset growth (% change in total assets)
+bank_panel = bank_panel.sort_values(["country", "date"])
+bank_panel["asset_growth"] = (
+    bank_panel.groupby("country")["total_assets"]
+    .pct_change()
+)
+bank_panel["asset_growth"] = (
+    bank_panel.groupby("country")["total_assets"]
+    .pct_change() * 100
+)
+# 14. Calculate change in leverage (TA/TE)
+bank_panel["leverage_change"] = (
+    bank_panel.groupby("country")["ta_te"]
+    .diff()
+)
+# 15. Drop rows with missing values
+bank_panel = bank_panel.dropna()
+
+# Plot average asset growth for East vs West banks over time
+avg_growth_region = (
+    bank_panel
+    .groupby(["date", "east"])["asset_growth"]
+    .mean()
+    .unstack()
+)
+
+plt.figure()
+plt.plot(avg_growth_region.index, avg_growth_region[0], label="West")
+plt.plot(avg_growth_region.index, avg_growth_region[1], label="East")
+plt.axvline(pd.to_datetime("2019-12-01"))
+plt.legend()
+plt.title("Asset Growth: East vs West")
+plt.ylabel("Asset Growth (%)")
+plt.show()
+
+bank_panel.to_csv("bank_panel_final.csv", index=False)
+
+
+
+
