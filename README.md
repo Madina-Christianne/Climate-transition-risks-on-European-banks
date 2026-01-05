@@ -78,3 +78,4 @@ This complements the R analysis by highlighting adjustment channels.
 
 ### Capital adjustment dynamics
 ![Asset growth by country](figures/asset_growth.png)
+<img width="640" height="480" alt="Asset growth figure py" src="https://github.com/user-attachments/assets/e636057a-6dbf-4743-ac2a-08c736dbb420" />
