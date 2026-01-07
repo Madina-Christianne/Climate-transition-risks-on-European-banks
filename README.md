@@ -4,13 +4,15 @@ This project studies how European banks adjust their balance sheets and capital 
 
 
 ## Table of Contents
-1. Research Questions
-2. Data Collection
-3. Methodological Approach
-4. Analysis in R: Capital Ratios and Policy Milestones
-5. Analysis in Python: Balance-Sheet Dynamics
-6. Key Findings
-7. Next Steps
+
+- [Research Questions](#research-questions)
+- [Data Collection](#data-collection)
+- [Methodological Approach](#methodological-approach)
+- [Analysis in R: Capital Ratios and Policy Milestones](#analysis-in-r-capital-ratios-and-policy-milestones)
+- [Analysis in Python: Balance-Sheet Dynamics](#analysis-in-python-balance-sheet-dynamics)
+- [Key Findings](#key-findings)
+- [Next Steps](#next-steps)
+
 
 
 ## 1. Research Questions
