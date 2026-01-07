@@ -35,6 +35,7 @@ For analytical purposes, countries are grouped into two regions:
 - **Eastern Europe**: PL, HU, HR, LT
 
 The regional grouping allows the analysis to focus on structural differences in bank adjustment patterns rather than country-specific idiosyncrasies.
+
 Key variables include CET1 ratios, return on equity (ROE), total assets, and leverage proxies.
 
 
