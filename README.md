@@ -79,7 +79,7 @@ This complements the R analysis by highlighting adjustment channels.
 
 
 ### Capital adjustment dynamics
-![Asset growth by country](figures/asset_growth.png)
+![Asset growth](figures/asset_growth.png)
 <img width="640" height="480" alt="Asset growth figure py" src="https://github.com/user-attachments/assets/e636057a-6dbf-4743-ac2a-08c736dbb420" />
 
 
@@ -109,34 +109,22 @@ At this stage, the project documents adjustment mechanisms rather than claiming 
 
 This project is ongoing and will be extended along several dimensions:
 
-Bank-level heterogeneity
-
-The current analysis is conducted at the country level. The next step is to explore bank-level differences, such as:
-
-size
-
-exposure to international markets
-
-initial capital constraints
+ **1.Bank-level heterogeneity**: The current analysis is conducted at the country level. The next step is to explore bank-level differences, such as:
+- size
+- exposure to international markets
+- initial capital constraints
 
 This is essential to understand how climate transition risks are distributed across institutions.
 
-**Longer-term dynamics**
-
-Climate transition policies operate over long horizons. Future work will:
-
-study adjustment paths over multiple years
-
-distinguish short-term regulatory reactions from structural balance-sheet changes
-
-assess the persistence of capital adjustments
+**2.Longer-term dynamics**: Climate transition policies operate over long horizons. Future work will study adjustment paths over multiple years, 
+distinguish short-term regulatory reactions from structural balance-sheet changes and assess the persistence of capital adjustments
 
 **Extension using SAS**
 
 SAS will be used to:
 
-handle larger and more granular datasets
+- handle larger and more granular datasets
 
-implement industry-standard panel and risk analysis workflows
+- implement industry-standard panel and risk analysis workflows
 
-align the project more closely with tools used in banking, regulation, and financial supervision
+- align the project more closely with tools used in banking, regulation, and financial supervision
