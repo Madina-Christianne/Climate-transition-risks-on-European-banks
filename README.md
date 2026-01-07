@@ -57,6 +57,11 @@ The R scripts:
 
 Key outputs include regression tables and time-series plots of CET1 ratios.
 
+<img width="1920" height="1080" alt="Average CET1 quarterly" src="https://github.com/user-attachments/assets/94178576-9798-4221-a3e0-7f9ac42627ac" />
+
+
+<img width="1920" height="1080" alt="ROE graph quarterly" src="https://github.com/user-attachments/assets/a29f57c2-fb50-44c3-85ca-0417b73716d7" />
+
 
 ## Analysis in Python: Balance-Sheet Dynamics
 
@@ -79,7 +84,7 @@ This complements the R analysis by highlighting adjustment channels.
 
 
 ### Capital adjustment dynamics
-!figures/asset_growth.png)
+
 <img width="640" height="480" alt="Asset growth figure py" src="https://github.com/user-attachments/assets/e636057a-6dbf-4743-ac2a-08c736dbb420" />
 
 
