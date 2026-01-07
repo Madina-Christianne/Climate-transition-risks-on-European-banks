@@ -78,7 +78,65 @@ The Python analysis:
 This complements the R analysis by highlighting adjustment channels.
 
 
-
 ### Capital adjustment dynamics
 ![Asset growth by country](figures/asset_growth.png)
 <img width="640" height="480" alt="Asset growth figure py" src="https://github.com/user-attachments/assets/e636057a-6dbf-4743-ac2a-08c736dbb420" />
+
+
+## Key Findings (Current Progress)
+
+Based on the analyses conducted so far in R and Python, several patterns stand out:
+
+- Banks tend to strengthen capital buffers following major climate policy announcements.
+CET1 ratios increase around key EU climate milestones, such as the European Green Deal (2019) and the ECB climate stress test (2020), 
+suggesting that banks respond proactively to climate-related regulatory signals.
+
+- Capital adjustment mainly occurs through leverage management rather than asset contraction.
+Balance-sheet dynamics indicate that banks adjust by reducing leverage instead of shrinking total assets, pointing to restructuring rather than withdrawal from lending activities.
+
+- Profitability plays a secondary role.
+Return on equity does not appear to be the main driver of capital strengthening, reinforcing the idea that balance-sheet decisions dominate the adjustment process.
+
+- Regional heterogeneity matters.
+Eastern European banks display stronger responses in capital and profitability measures compared to Western European banks, highlighting uneven adjustment paths across the European banking system.
+
+- Results are robust across policy definitions.
+The main findings hold when using both 2019 and 2020 climate policy milestones as reference points.
+
+At this stage, the project documents adjustment mechanisms rather than claiming direct causal effects.
+
+## Next Steps
+
+This project is ongoing and will be extended along several dimensions:
+
+Bank-level heterogeneity
+
+The current analysis is conducted at the country level. The next step is to explore bank-level differences, such as:
+
+size
+
+exposure to international markets
+
+initial capital constraints
+
+This is essential to understand how climate transition risks are distributed across institutions.
+
+**Longer-term dynamics**
+
+Climate transition policies operate over long horizons. Future work will:
+
+study adjustment paths over multiple years
+
+distinguish short-term regulatory reactions from structural balance-sheet changes
+
+assess the persistence of capital adjustments
+
+**Extension using SAS**
+
+SAS will be used to:
+
+handle larger and more granular datasets
+
+implement industry-standard panel and risk analysis workflows
+
+align the project more closely with tools used in banking, regulation, and financial supervision
