@@ -30,6 +30,11 @@ Data is sourced primarily from the European Central Bank (ECB), using the Consol
 - Countries: Germany (DE), France (FR), Netherlands (NL), Luxembourg (LU), Poland (PL), Hungary (HU), Croatia (HR), Lithuania (LT)
 - Period: 2014–2024
 
+For analytical purposes, countries are grouped into two regions:
+- **Western Europe**: DE, FR, NL, LU
+- **Eastern Europe**: PL, HU, HR, LT
+
+The regional grouping allows the analysis to focus on structural differences in bank adjustment patterns rather than country-specific idiosyncrasies.
 Key variables include CET1 ratios, return on equity (ROE), total assets, and leverage proxies.
 
 
@@ -52,8 +57,9 @@ Banks increase capital buffers after climate-related policy announcements, with 
 
 The R scripts:
 - Construct policy dummies
-- Implement difference-in-differences regressions
-- Visualize CET1 trends across countries
+- Implement difference-in-differences regressions using regional treatment groups
+- Visualize CET1 trends for Eastern and Western European banks
+
 
 Key outputs include regression tables and time-series plots of CET1 ratios.
 
@@ -103,7 +109,7 @@ Balance-sheet dynamics indicate that banks adjust by reducing leverage instead o
 Return on equity does not appear to be the main driver of capital strengthening, reinforcing the idea that balance-sheet decisions dominate the adjustment process.
 
 - Regional heterogeneity matters.
-Eastern European banks display stronger responses in capital and profitability measures compared to Western European banks, highlighting uneven adjustment paths across the European banking system.
+Eastern European banks exhibit stronger and more pronounced adjustments in capital and leverage relative to Western European banks, suggesting differing regulatory pressures, financial structures, and transition exposures.
 
 - Results are robust across policy definitions.
 The main findings hold when using both 2019 and 2020 climate policy milestones as reference points.
