@@ -15,13 +15,14 @@ This project studies how European banks adjust their balance sheets and capital 
 
 
 
-## 1. Research Questions
+## Research Questions
+
 - How do banks' capital ratio's (CET1) evolve around climate policy milestones ?
 - Do banks adjust through asset growth or leverage?
 - Are there systematic differences between Eastern and Western European banks?
 
 
-## 2. Data Collection
+## Data Collection
 
 Data is sourced primarily from the European Central Bank (ECB), using the Consolidated Banking Data portal.
 
@@ -32,7 +33,7 @@ Data is sourced primarily from the European Central Bank (ECB), using the Consol
 Key variables include CET1 ratios, return on equity (ROE), total assets, and leverage proxies.
 
 
-## 3. Methodological Approach
+## Methodological Approach
 
 The project combines two complementary approaches:
 
@@ -42,7 +43,7 @@ The project combines two complementary approaches:
 The objective is not causal identification, but to document adjustment mechanisms and structural patterns.
 
 
-## 4. Analysis in R: Capital Ratios and Policy Milestones
+## Analysis in R: Capital Ratios and Policy Milestones
 
 In R, we test whether banks’ CET1 ratios change following key EU climate policy milestones, such as the European Green Deal (2019) and the ECB climate stress test (2020).
 
@@ -57,7 +58,7 @@ The R scripts:
 Key outputs include regression tables and time-series plots of CET1 ratios.
 
 
-## 5. Analysis in Python: Balance-Sheet Dynamics
+## Analysis in Python: Balance-Sheet Dynamics
 
 Python is used to analyze how banks adjust their balance sheets in response to climate transition pressures.
 
