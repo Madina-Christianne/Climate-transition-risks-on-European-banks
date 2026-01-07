@@ -27,7 +27,7 @@ This project studies how European banks adjust their balance sheets and capital 
 Data is sourced primarily from the European Central Bank (ECB), using the Consolidated Banking Data portal.
 
 - Quarterly balance-sheet data for domestic banks
-- Countries: DE, FR, NL, LU, PL, HU, HR, LT
+- Countries: Germany (DE), France (FR), Netherlands (NL), Luxembourg (LU), Poland (PL), Hungary (HU), Croatia (HR), Lithuania (LT)
 - Period: 2014–2024
 
 Key variables include CET1 ratios, return on equity (ROE), total assets, and leverage proxies.
